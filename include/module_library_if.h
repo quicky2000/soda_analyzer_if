@@ -7,7 +7,7 @@
 namespace osm_diff_analyzer_if
 {
 #define MODULE_LIBRARY_IF_VERSION "1.0"
-#define MODULE_LIBRARY_IF_API_SIZE 3
+#define MODULE_LIBRARY_IF_API_SIZE 6
 
   class module_library_if
   {
@@ -18,9 +18,15 @@ namespace osm_diff_analyzer_if
     typedef general_analyzer_if*(*t_create_analyzer)(const std::string & p_name);
     typedef analyzer_description_if * (*t_get_description)(void);
     typedef const char *(*t_get_api_version)(void);
+    typedef uint32_t(*t_get_api_size)(void);
+    typedef void (*t_require_common_api)(t_register_function);
+    typedef void (*t_cleanup)(void);
     typedef enum /* class */ {GET_API_VERSION=0,
+                              GET_API_SIZE,
 			      GET_DESCRIPTION,
-			      CREATE_ANALYZER} t_module_library_index;
+			      CREATE_ANALYZER,
+			      REQUIRE_COMMON_API,
+                              CLEAN_UP} t_module_library_index;
   };
 }
 #endif // _MODULE_LIBRARY_IF_H_
