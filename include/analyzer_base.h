@@ -1,11 +1,11 @@
 #ifndef _ANALYZER_BASE_H_
 #define _ANALYZER_BASE_H_
 
-#include "general_analyzer_if.h"
+#include <string>
 
 namespace osm_diff_analyzer_if
 {
-  class analyzer_base:  public general_analyzer_if
+  class analyzer_base
   {
   public:
     inline analyzer_base(const std::string & p_type,
