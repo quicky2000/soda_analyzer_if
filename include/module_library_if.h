@@ -2,6 +2,7 @@
 #define _MODULE_LIBRARY_IF_H_
 
 #include "general_analyzer_if.h"
+#include "module_configuration.h"
 #include <stdint.h>
 
 namespace osm_diff_analyzer_if
