@@ -6,7 +6,7 @@
 
 namespace osm_diff_analyzer_if
 {
-#define MODULE_LIBRARY_IF_VERSION "1.0"
+#define MODULE_LIBRARY_IF_VERSION "0.1"
 #define MODULE_LIBRARY_IF_API_SIZE 6
 
   class module_library_if
@@ -15,7 +15,7 @@ namespace osm_diff_analyzer_if
 
     typedef void(*t_register_function)(void **,uint32_t);
 
-    typedef general_analyzer_if*(*t_create_analyzer)(const std::string & p_name);
+    typedef general_analyzer_if*(*t_create_analyzer)(const module_configuration * p_conf);
     typedef analyzer_description_if * (*t_get_description)(void);
     typedef const char *(*t_get_api_version)(void);
     typedef uint32_t(*t_get_api_size)(void);
