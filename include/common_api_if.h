@@ -11,13 +11,15 @@
 namespace osm_diff_analyzer_if
 {
 #define COMMON_API_IF_VERSION "1.0"
-#define COMMON_API_IF_SIZE 24
+#define COMMON_API_IF_SIZE 28
   class common_api_if
   {
   public:
     typedef const char *(*t_get_api_version)(void);
 
-    typedef void (*t_get_user_subscription_date)(const std::string & p_name,std::string & p_date,
+    typedef void (*t_get_user_subscription_date)(const osm_api_data_types::osm_object::t_osm_id & p_id,
+                                                 const std::string & p_name,
+                                                 std::string & p_date,
 						 void * p_user_data); 
 
     typedef const osm_api_data_types::osm_node * (*t_get_node)(const osm_api_data_types::osm_object::t_osm_id & p_id,
@@ -98,7 +100,13 @@ namespace osm_diff_analyzer_if
                               std::vector<osm_api_data_types::osm_way*> & p_ways,
                               std::vector<osm_api_data_types::osm_relation*> & p_relations,
                               void *p_user_data);
-    
+    typedef void (*t_cache_node)(const osm_api_data_types::osm_node & p_node);
+    typedef void (*t_cache_way)(const osm_api_data_types::osm_way & p_way);
+    typedef void (*t_cache_relation)(const osm_api_data_types::osm_relation & p_relation);
+    typedef void (*t_cache_user)(const osm_api_data_types::osm_object::t_osm_id & p_id,
+                                 const std::string & p_user_name,
+                                 const std::string & p_date);
+
     typedef enum /* class */ {GET_API_VERSION=0,
 			      GET_USER_SUBSCRIPTION_DATE,
                               GET_NODE,
@@ -122,7 +130,11 @@ namespace osm_diff_analyzer_if
                               GET_CHANGESET,
                               GET_CHANGESET_CONTENT,
                               GET_CHANGESETS,
-                              GET_MAP} t_common_api_index;
+                              GET_MAP,
+			      CACHE_NODE,
+			      CACHE_WAY,
+			      CACHE_RELATION,
+                              CACHE_USER} t_common_api_index;
   };
 }
 #endif // _COMMON_API_IF_H_

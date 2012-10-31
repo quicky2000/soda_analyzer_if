@@ -5,10 +5,10 @@
 
 namespace osm_diff_analyzer_if
 {
+  class osm_diff_state;
   class general_analyzer_if:public analyzer_description_if
   {
   public:
-    virtual void init(void)=0;
     virtual const std::string & get_name(void)const=0;
     inline virtual ~general_analyzer_if(void){};
   };
