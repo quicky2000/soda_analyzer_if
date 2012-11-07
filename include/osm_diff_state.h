@@ -27,18 +27,25 @@ namespace osm_diff_analyzer_if
   class osm_diff_state
   {
   public:
-    inline osm_diff_state(const uint64_t & p_sequence_number, const std::string & p_timestamp);
+    inline osm_diff_state(const uint64_t & p_sequence_number,
+                          const std::string & p_timestamp,
+                          const std::string & p_replication_domain);
     inline const uint64_t & get_sequence_number(void)const;
     inline const std::string & get_timestamp(void)const;
+    inline const std::string & get_replication_domain(void)const;
   private:
     const uint64_t m_sequence_number;
     const std::string m_timestamp;
+    const std::string m_replication_domain;
   };
 
   //----------------------------------------------------------------------------
-  osm_diff_state::osm_diff_state(const uint64_t & p_sequence_number, const std::string & p_timestamp):
+  osm_diff_state::osm_diff_state(const uint64_t & p_sequence_number,
+                                 const std::string & p_timestamp,
+                                 const std::string & p_replication_domain):
     m_sequence_number(p_sequence_number),
-    m_timestamp(p_timestamp)
+    m_timestamp(p_timestamp),
+    m_replication_domain(p_replication_domain)
       {
       }
 
@@ -52,7 +59,11 @@ namespace osm_diff_analyzer_if
       {
         return m_timestamp;
       }
-
+    //----------------------------------------------------------------------------
+    const std::string & osm_diff_state::get_replication_domain(void)const
+      {
+        return m_replication_domain;
+      }
 
 }
 #endif // _OSM_DIFF_STATE_H_
