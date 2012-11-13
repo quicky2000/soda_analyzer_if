@@ -28,7 +28,7 @@
 
 namespace osm_diff_analyzer_if
 {
-#define COMMON_API_IF_VERSION "0.1"
+#define COMMON_API_IF_VERSION "0.2"
 #define COMMON_API_IF_SIZE 33
   class common_api_if
   {
@@ -123,6 +123,7 @@ namespace osm_diff_analyzer_if
     typedef void (*t_cache_relation)(const osm_api_data_types::osm_relation & p_relation);
     typedef void (*t_cache_user)(const osm_api_data_types::osm_object::t_osm_id & p_id,
                                  const std::string & p_user_name,
+				 const osm_api_data_types::osm_object::t_osm_id & p_latest_changeset,
                                  const std::string & p_date);
     typedef const std::vector<osm_api_data_types::osm_change*> * const (*t_get_osm_change_file_content)(const std::string & p_file_name);
     typedef void (*t_get_osm_file_content)(const std::string & p_file_name,
