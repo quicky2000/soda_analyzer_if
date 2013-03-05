@@ -19,8 +19,11 @@
 #ifndef _MODULE_CONFIGURATION_H_
 #define _MODULE_CONFIGURATION_H_
 
+#include "quicky_exception.h"
+#include <sstream>
 #include <string>
 #include <map>
+#include <cassert>
 
 namespace osm_diff_analyzer_if
 {
@@ -29,10 +32,12 @@ namespace osm_diff_analyzer_if
   public:
     inline module_configuration(const std::string & p_name,const std::string & p_type, bool p_enabled=true);
     inline void add_parameter(const std::string & p_name, const std::string & p_value);
+    inline void remove_parameter(const std::string & p_name);
     inline const std::string & get_name(void)const;
     inline const std::string & get_type(void)const;
     inline bool is_enabled(void)const;
     inline const std::map<std::string,std::string> & get_parameters(void)const;
+    inline bool is_parameter_defined(const std::string & p_name)const;
   private:
     const std::string m_name;
     const std::string m_type;
@@ -52,7 +57,26 @@ namespace osm_diff_analyzer_if
   {
     m_parameters.insert(make_pair(p_name,p_value));
   }
-  
+
+  //----------------------------------------------------------------------------
+  void module_configuration::remove_parameter(const std::string & p_name)
+  {
+      std::map<std::string,std::string>::iterator l_iter = m_parameters.find(p_name);
+      if(m_parameters.end() == l_iter)
+        {
+          std::stringstream l_stream;
+          l_stream << "ERROR : try to remove parameter \"" << p_name << " which doesn't exist";
+          throw quicky_exception::quicky_logic_exception(l_stream.str(),__LINE__,__FILE__);
+        }
+      m_parameters.erase(l_iter);
+  }
+
+  //----------------------------------------------------------------------------
+  bool module_configuration::is_parameter_defined(const std::string & p_name)const
+  {
+      return m_parameters.find(p_name) != m_parameters.end();
+  }
+
   //----------------------------------------------------------------------------
   const std::string & module_configuration::get_name(void)const
   {

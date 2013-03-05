@@ -28,8 +28,10 @@
 
 namespace osm_diff_analyzer_if
 {
-#define COMMON_API_IF_VERSION "0.2"
-#define COMMON_API_IF_SIZE 33
+#define COMMON_API_IF_VERSION "0.3"
+#define COMMON_API_IF_SIZE 36
+  class analyzer_base;
+
   class common_api_if
   {
   public:
@@ -142,6 +144,15 @@ namespace osm_diff_analyzer_if
                                          const osm_api_data_types::osm_object::t_osm_id & p_id,
                                          const osm_api_data_types::osm_core_element::t_osm_version & p_version);
 
+    typedef void (*t_ui_register_module)(const osm_diff_analyzer_if::analyzer_base & p_module,
+					 const std::string & p_name);
+
+    typedef void (*t_ui_append_log_text)(const osm_diff_analyzer_if::analyzer_base & p_module,
+					 const std::string & p_text);
+
+    typedef void (*t_ui_declare_html_report)(const osm_diff_analyzer_if::analyzer_base & p_module,
+					     const std::string & p_name);
+
     typedef enum /* class */ {GET_API_VERSION=0,
 			      GET_USER_SUBSCRIPTION_DATE,
                               GET_NODE,
@@ -174,7 +185,10 @@ namespace osm_diff_analyzer_if
                               GET_OSM_FILE_CONTENT,
                               GET_USER_BROWSE_URL,
                               GET_OBJECT_BROWSE_URL,
-                              GET_API_OBJECT_URL} t_common_api_index;
+                              GET_API_OBJECT_URL,
+			      UI_REGISTER_MODULE,
+    			      UI_APPEND_LOG_TEXT,
+			      UI_DECLARE_HTML_REPORT} t_common_api_index;
   };
 }
 #endif // _COMMON_API_IF_H_
